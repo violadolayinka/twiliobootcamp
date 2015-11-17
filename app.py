@@ -21,4 +21,13 @@ def business_phone():
           <Record action = "/hangup" />
         </Response>"""
 
+@app.route('/recordings')
+def show_recordings():
+    api = "https://api.twilio.com/2010-04-01"
+    uri = "/Accounts/" + ACCOUNT_SID + "/Recordings.json"
+    credentials = (ACCOUNT_SID,ACCOUNT_TOKEN)
+    response = requests.get(api + uri, auth=credentials)
+    recordings = json.loads(response.content)
+    return app.display_recordings(recordings)
+
 app.run()
